@@ -234,7 +234,10 @@ function Convert-DosToUnix {
     }
 
     $src = [System.IO.Path]::GetFullPath($SourceFile)
-    $dst = [System.IO.Path]::GetFullPath($DestFile)
+
+    if (-not ([System.String]::IsNullOrEmpty($DestFile))) {
+        $dst = [System.IO.Path]::GetFullPath($DestFile)
+    }
     
 
     if (-not (Test-Path $src)) {
