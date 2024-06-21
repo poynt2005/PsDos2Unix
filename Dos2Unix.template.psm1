@@ -229,16 +229,17 @@ function Convert-DosToUnix {
         $flagsToConv = Get-DefaultFlag
     }
 
+    $src = [System.String]::Empty
+    $dst = [System.String]::Empty
+
+    $src = [System.IO.Path]::GetFullPath($SourceFile)
     if (-not $flagsToConv.IsNewFile) {
         $dst = $src
     }
-
-    $src = [System.IO.Path]::GetFullPath($SourceFile)
-
+    
     if (-not ([System.String]::IsNullOrEmpty($DestFile))) {
         $dst = [System.IO.Path]::GetFullPath($DestFile)
     }
-    
 
     if (-not (Test-Path $src)) {
         throw "cannot find source file: $src"
