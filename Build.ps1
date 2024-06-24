@@ -1,3 +1,7 @@
+Import-Module .\FetchCode.psm1
+
+$restCodeToRemove = $(Fetch-Dos2UnixCode)
+
 $dllUuid = [System.Guid]::NewGuid().ToString()
 
 $templateContent = [System.IO.File]::ReadAllText($(Get-Item .\Dos2Unix.template.psm1).FullName)
@@ -39,4 +43,4 @@ Remove-Item -Force -Path "$libPath.lib"
 Remove-Item -Force -Path "$libPath.dll"
 Get-ChildItem .\ | ? { $_.Extension.ToLower() -eq ".o" } | % { Remove-Item -Force -Path $_.FullName }
 
-
+@("common.c", "common.h", "dos2unix.c", "dos2unix.h", "querycp.c", "querycp.h", "flag.h") | % { Remove-Item -Force -Path $_ }
